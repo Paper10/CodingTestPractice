@@ -19,38 +19,22 @@ result = -1
 visit = [[[0]*2 for _ in range(m)] for _ in range(n)]
 q = deque()
 
-#큐의 첫 데이터는 0,0 좌표이며 거리값은 1이고 벽을 부수지않았으므로 punch값에 0저장
-q.append([0,0,1,0])
+q.append([0,0,1,0]) #큐의 첫 데이터는 0,0 좌표이며 거리값은 1이고 벽을 부수지않았으므로 punch값에 0저장
 while(q):
     x,y,distance,punch = q.popleft()
-
-    #punch값에 따라 알맞은 인덱스에 방문을 기록한다
-    visit[y][x][punch]=1
-    
-    #만약 목표지점에 도달했다면 result에 distance값을 저장하고 루프를 빠져나온다
-    #BFS알고리즘 특성상 가장 먼저 목표지점에 방문했을떄의 distance가 최단거리이다
-    if x==m-1 and y==n-1:
-        result = distance
+    visit[y][x][punch]=1 #punch값에 따라 알맞은 인덱스에 방문을 기록한다
+    if x==m-1 and y==n-1: #만약 목표지점에 도달했다면 result에 distance값을 저장하고 루프를 빠져나온다
+        result = distance #BFS알고리즘 특성상 가장 먼저 목표지점에 방문했을떄의 distance가 최단거리이다
         break
-
-    #현재노드 기준 동서남북 4방향을 각각 검증한다
-    for i in range(4):
+    for i in range(4): #현재노드 기준 동서남북 4방향을 각각 검증한다
         nx = x+dx[i]
         ny = y+dy[i]
-
-        #다음 노드가 map안에 들어와야 한다
-        if 0<=nx<m and 0<=ny<n:
-
-            #다음 노드를 방문한적이 없으면서 벽이 아닌경우
-            if visit[ny][nx][punch]==0 and map[ny][nx]==0:
+        if 0<=nx<m and 0<=ny<n: #다음 노드가 map안에 들어와야 한다 
+            if visit[ny][nx][punch]==0 and map[ny][nx]==0: #다음 노드를 방문한적이 없으면서 벽이 아닌경우
                 q.append([nx,ny,distance+1,punch])
-
-            #벽을 부수지 않았고 다음 노드가 벽이면서 아직 방문하지 않았을경우
-            elif punch==0 and visit[ny][nx][0]==0 and map[ny][nx]==1:
+            elif punch==0 and visit[ny][nx][0]==0 and map[ny][nx]==1: #벽을 부수지 않았고 다음 노드가 벽이면서 아직 방문하지 않았을경우
                 q.append([nx,ny,distance+1,1])
-
-#결과를 출력한다
-print(result)
+print(result) #결과를 출력한다
 
 #---------------------------------------------------------------------------------
 #문제 분야 : BFS
