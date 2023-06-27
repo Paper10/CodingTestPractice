@@ -8,6 +8,7 @@ import heapq
 import sys
 from collections import deque
 input = sys.stdin.readline
+sys.setrecursionlimit(10000)
 
 
 
